@@ -1,5 +1,7 @@
 const image=document.getElementById('imageUpload')
 
+
+
  Promise.all([
     faceapi.nets.faceRecognitionNet.loadFromUri('/models'),
     faceapi.nets.faceLandmark68Net.loadFromUri('/models'),
@@ -49,8 +51,9 @@ function loadLabeledImages(){
     labels.map( async label => {
                const descriptions = []
                for(let i=1;i<=4;i++){
-               const img= await faceapi.fetchImage("http://localhost:8000/"+label+"/"+i+".jpg")
+               const img= await faceapi.fetchImage("https://github.com/sksahu2097/face_regonization/tree/master/labeled_images/"+label+"/"+i+".jpg",{mode:'no-cors'})
                
+               //const img= await faceapi.fetchImage(`https://github.com/sksahu2097/face_regonization/tree/master/labeled_images/${label}/${i}.jpg`,{mode:'no-cors'})
 
                const detections= await faceapi.detectSingleFace(img).withFaceLandmarks().withFaceDescriptor()
                 descriptions.push(detections.descriptor)
